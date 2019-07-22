@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--<link rel="shortcut icon" type="image/png" href="icon.png">-->
+    <title>My Style Guide</title>
+
+    <!-- WEBSITE THEME -->
+    <!--<link rel="stylesheet" type="text/css" href="theme.css">-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans+Condensed:300,700|Roboto|Roboto+Slab" rel="stylesheet">
+    
+    
+	<!-- Include script for font awesome icon library -->
+    <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
+
+</head>
+<style>
+    /*--NAVIGATION--*/
+
+.navbar{
+    background-color: #353535;
+    border-bottom: 3px solid #3C6E71;
+    padding: 10px;
+}
+
+.navbar-brand{
+    color: white;
+    margin-left: 20px;
+}
+
+/*--MENU--*/
+.col-md-3{
+    width: 25%;
+    display: inline-block;
+    float: left;
+    position: fixed;
+    left: 0;
+
+}
+
+.col-md-9{
+    width: 75%;
+    display: inline-block;
+    float: right;
+}
+
+ul{
+    list-style: none;
+}
+
+li a{
+    color: black;
+}
+
+li a:hover{
+    color: #3C6E71;
+}
+
+/*--MAIN--*/
+
+a{
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: black;
+}
+
+h1 {
+    font-size: 42px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 36px;
+    font-weight: 300;
+}
+
+h3 {
+    font-size: 30px;
+    font-weight: 300;
+}
+
+h4 {
+  font-size: 20px
+}
+
+.spacer{
+    border-bottom: 1px solid #FFFFFF;
+    padding-bottom: 12px;
+    margin-top: 25px;
+}
+
+.spacer-bottom{
+    border-bottom: 1px solid #FFFFFF;
+    padding-bottom: 12px;
+    margin: 25px 0;
+}
+
+
+.top {
+    color: #3C6E71;
+    
+}
+.top:hover{
+    text-shadow:0 0 10px #A8A8AA;   
+}
+
+
+button {
+    padding: 10px;
+    color: white;
+}
+
+#bt-1{
+  background-color: #284B63;
+  border-color: #284B63;
+}
+
+#bt-2{
+  border-color: #284B63;
+  color: #284B63;
+}
+
+.inputLabel {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+input.inputField {
+    padding: 5px;
+    border: 1px solid #284B63;
+}
+
+div.box {
+    height: 100px;
+    width: 100px;
+    display: inline-block;
+    margin: 0 10px 0 10px;
+}
+
+#primary1 {
+    background-color: #284B63;
+}
+
+#primary2 {
+    background-color: #3C6E71;
+}
+
+#primary3 {
+    background-color: #FFFFFF;
+}
+
+#primary4 {
+    background-color: #D9D9D9;
+}
+
+#primary5 {
+    background-color: #353535;
+}
+
+
+.error {
+    background-color: #353535;
+    font-weight: bold;
+    color: #ED6A5A;
+    padding: 10px;
+    text-align: center;
+    width: 265px;
+   
+}
+
+.submitted {
+    background-color: #353535;
+    font-weight: bold;
+    color: #FFFFFF;
+    padding: 10px;
+    text-align: center;
+    width: 265px;
+}
+
+/*--ICONS/LOGOS--*/
+img{
+    width: 62px;
+    margin: 0 1px 0 6px;
+
+}
+
+svg.svg-inline--fa {
+    color: #353535;
+    
+}
+.svg-inline--fa.fa-w-14{
+    width: 70px;
+}
+.svg-inline--fa{
+    height: 70px;
+}
+
+/*--FOOTER--*/
+
+#footer {
+    background-color: #353535;
+    border-top: 3px solid #3C6E71;
+    color:white;
+    margin-top: 50px;
+    padding: 10px;
+    text-align: center;
+    clear: right;
+}
+</style>
+
+<body>
+  <a name="Top"></a>
+    <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="#"> 
+                  <span class="navbar-brand">My Interface Style Guide</span>
+                </a>
+            </div>
+        </div>
+    </div>
+  <div class="container">
+      <div class="col-md-3">
+          <ul class="list-group">
+              <li class="list-group-item">
+                  <a href="#fonts">Font</a>
+              </li>
+              <li class="list-group-item">
+                  <a href="#colorTheme">Color Theme</a>
+              </li>
+              <li class="list-group-item">
+                  <a href="#headings">Headings</a>
+              </li>
+              <li class="list-group-item">
+                  <a href="#buttons">Buttons</a>
+              </li>
+              <li class="list-group-item">
+                  <a href="#formElements">Input Elements</a>
+              </li>
+              <li class="list-group-item">
+                  <a href="#messages">Messages</a>
+              </li>
+          </ul>
+      </div>
+      <div class="col-md-9">
+          <!-- About -->
+          <div>
+            <div class="spacer">
+              <div class="page-header">
+                  <h1>
+                      <a name="about"></a>My Styles</h1>
+              </div>
+              <p>This page contains specific style guide information for my front end interface.</p>
+            </div>
+          </div>
+          <!-- End About -->
+
+          <!-- Fonts -->
+          <div>
+              <div class="page-header">
+                  <h1>
+                      <a name="fonts"></a>Font</h1>
+              </div>
+              <p>My application utilizes the 'Roboto', 'Montserrat', 'Roboto Slab', and 'Open Sans Condensed' font-family with black text.</p>
+          </div>
+          <div class="spacer">
+          </div>
+          <!-- End Fonts -->
+
+          <!-- Color Theme -->
+          <div>
+              <div class="page-header">
+                  <h1>
+                      <a name="colorTheme"></a>Color Theme</h1>
+              </div>
+              <p>My application incorporates the below color scheme in its interface.</p>
+              <div class="box" id="primary1" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);"></div>
+              <div class="box" id="primary2" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);"></div>
+              <div class="box" id="primary3" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);"></div>
+              <div class="box" id="primary4" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);"></div>
+              <div class="box" id="primary5" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);"></div>
+          </div>
+          <div class="spacer">
+          </div>
+          <!-- End Color Theme -->
+
+          <!-- Headings -->
+          <div>
+              <div class="page-header">
+                  <h1>
+                      <a name="headings"></a>Headings</h1>
+              </div>
+              <p>The below font sizes and styles are used in the application for various content headings.</p>
+              <h1>Heading 1</h1>
+              <h2>Heading 2</h2>
+              <h3>Heading 3</h3>
+              <h4>Heading 4</h4>
+          </div>
+          <div class="spacer">
+          </div>
+          <!-- End Headings -->
+
+          <!-- Buttons -->
+          <div>
+              <div class="page-header">
+                  <h1>
+                      <a name="buttons"></a>Buttons</h1>
+              </div>
+              <p>The application will feature buttons that contain the below color and shape:</p>
+              <button id="bt-1">My Button</button>
+              <button id="bt-2">My Button</button>
+          </div>
+          <div class="spacer">
+          </div>
+          <!-- End Buttons -->
+
+          <!-- Input Elements -->
+          <div>
+              <div class="page-header">
+                  <h1>
+                      <a name="formElements"></a>Input Elements</h1>
+              </div>
+              <p>For the varous forms that the application will contain, it will contain input fields and labels with the below styling:</p>
+              <form>
+                  <label for="name" class="inputLabel">Name</label>
+                  <input type="input" id="name" class="inputField" value="">
+              </form>
+          </div>
+          <div class="spacer">
+          </div>
+          <!-- End Input Elements -->
+
+          <!-- User Messages -->
+          <div>
+              <div class="page-header">
+                  <h1>
+                      <a name="messages"></a>Messages</h1>
+              </div>
+              <p>For completed tasks, application notifications will be presented to the user based.  The following contextual messages will be used.</p>
+              <p class="error">Error</p>
+              <p class="submitted">Submitted</p>
+          </div>
+          <!-- End User Messages -->
+          <div class="spacer-bottom">
+            <a href="#Top" class="top">Back to Top</a>
+        </div>
+        <!-- End Icon and Logos -->
+      </div>
+  </div>
+  <div id="footer">
+      <div class="container">
+          <p class="text-muted">My Style Guide</p>
+      </div>
+  </div>
+</body>
+</html>
