@@ -6,7 +6,7 @@ function database(){
     return $connect;
 }
 
-if(database()){
-    echo 'wawu !!! I’m connected';
-}
+//if(database()){
+    //echo 'wawu !!! I’m connected';
+//}
 ?>

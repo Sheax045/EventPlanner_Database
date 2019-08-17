@@ -1,20 +1,23 @@
 <?php
 require_once 'database_connect.php';
 if(isset($_POST['submit'])) {
-   $title = $_POST['eventTitle'];
-   $date = $_POST['eventDate'];
+    $title = $_POST['eventTitle'];
+    $date = $_POST['eventDate'];
 
-   //connect to database
-   database();
-   global $connect;
-   $event = "INSERT INTO events(Name, Date) VALUES ('$title', '$date')";
-  $insertEvent = mysqli_query($connect, $event);
-  if($insertEvent){
-      echo 'successfully';
-  }else{
-      echo mysqli_error($connect);
-  }
-      mysqli_close($connect);
+    //connect to database
+    database();
+    global $connect;
+    $event = "INSERT INTO events(name, date) VALUES ('$title', '$date')";
+    $insertEvent = mysqli_query($connect, $event);
+    if($insertEvent){
+        echo 'successfully';
+        //sends user to new event page
+        //header('location: events.php');
+    }
+    else{
+        echo mysqli_error($connect);
+    }
+    //mysqli_close($connect);
 }
 ?>
 
@@ -63,8 +66,8 @@ font-family: 'Open Sans Condensed', sans-serif;*/
 }
 
 .btn:hover{
-    background-color: #284B63;
-    opacity: .95;
+    background-color: #FFFFFF;
+    color:#284B63;
 }
 
 .form-control{
@@ -83,13 +86,22 @@ a {
 
 a:hover {
     color: #284B63; 
-    text-decoration: none;
+    text-decoration: ;
 }
 
 .deleteEvent:hover {
-    background-color: blue;
+    -webkit-transform: rotate(15deg);
+    transform: rotate(15deg);
 }
 
+.editEvent:hover {
+    -webkit-transform: rotate(15deg);
+    transform: rotate(15deg);
+}
+
+li:first-child{
+    margin-top: 1em;
+}
     </style>
   </head>
   <body>
@@ -105,7 +117,7 @@ a:hover {
             <div class="col-8">
                 <form method='post' action='create.php'>
                 <div class="input-group input-group-lg">
-                    <button type="submit" name='submit' class="btn btn-dark btn-lg">Create</button>
+                <button type="submit" name='submit' class="btn btn-dark btn-lg">Create</button>
                     <input type="text" id="eventTitle" name="eventTitle" value="Event Name" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
                 </div>
             </div>
@@ -118,29 +130,42 @@ a:hover {
         </div>
         <div class="row">
             <div class="col">
-                <table>
-                    <tr>
-                        <th>Events</th>
-                    </tr>
                     <?php
-                    require_once 'database_connect.php';
-                $sql = 'SELECT Name from events';
-                $result = database()-> query($sql);
+                    database();
+                    global $connect;
+                    //$item  = ;
+                    $result = mysqli_query($connect, "SELECT eventid, name, date FROM events");
+                    //check if there's any data inside the table and if there is 1 or more items, it will fetch and display them
+                    if(mysqli_num_rows($result) >= 1){
+                        while($row = mysqli_fetch_array($result)){
+                            $id = $row["eventid"];
+                            $title = $row["name"];
+                            $date = $row["date"];
 
-                if ($result-> num_rows > 0) {
-                    while ($row = $result-> fetch_assoc()) {
-                        echo '<tr><td><a href="events.html">'. $row['Name'].'</a><a href="delete.php?del=<?php echo $id?>"><img src="img/icons8-trash-50.png" alt="Delete" class="deleteEvent" style="width:20%; margin-left:12%; margin-bottom: 4%;"></a></td></tr>';
-                    }
-                    echo '</table>';
+                    //this gets the Notes from the notes table
+                    $noteResults = mysqli_query($connect, "SELECT Notes FROM notes WHERE eventid = '$id'");
+                    if(mysqli_num_rows($noteResults) >= 1){
+                        while($row = mysqli_fetch_array($noteResults)){
+                            $notes = $row["Notes"];
+
+                                }
+                            }
+                        ?>
+                            
+                
+                <ul>
+                    <li style="list-style: none; display: inline-block;"><a href="events.php?title=<?php echo $title?>&date=<?php echo $date?>&id=<?php echo $id?>&note=<?php echo $notes?>"><?php echo $title?></a></li>
+                    <a href="delete.php?del=<?php echo $id?>"><img src="img/icons8-trash-50.png" alt="Delete" class="deleteEvent" style="width:1em; margin-left:1em; display: inline-block;"></a>
+                </ul>
+            
+            <?php
+                                
                 }
-                else {
-                    echo '0 result';
-                }
-                $connect-> close();
-                ?>
-                </table>
+                mysqli_close($connect);
+            }
+                    ?>
             </div>
-        </div>
+        </div>    
     </div>
 
     <!-- Optional JavaScript -->
@@ -152,6 +177,7 @@ a:hover {
         $('#datepicker').datepicker({
             uiLibrary: 'bootstrap4'
         });
+
     </script>
 </body>
 </html>
