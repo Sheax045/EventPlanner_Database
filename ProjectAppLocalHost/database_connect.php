@@ -7,6 +7,6 @@ function database(){
 }
 
 //if(database()){
-    //echo 'wawu !!! I’m connected';
+    //echo 'Connected';
 //}
 ?>

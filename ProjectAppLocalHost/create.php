@@ -1,26 +1,3 @@
-<?php
-require_once 'database_connect.php';
-if(isset($_POST['submit'])) {
-    $title = $_POST['eventTitle'];
-    $date = $_POST['eventDate'];
-
-    //connect to database
-    database();
-    global $connect;
-    $event = "INSERT INTO events(name, date) VALUES ('$title', '$date')";
-    $insertEvent = mysqli_query($connect, $event);
-    if($insertEvent){
-        echo 'successfully';
-        //sends user to new event page
-        //header('location: events.php');
-    }
-    else{
-        echo mysqli_error($connect);
-    }
-    //mysqli_close($connect);
-}
-?>
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -113,7 +90,30 @@ li:first-child{
     </div>
     <div class="container">
         <div class="row">
-            
+        <?php
+        require_once 'database_connect.php';
+        if(isset($_POST['submit'])) {
+            $title = $_POST['eventTitle'];
+            $date = $_POST['eventDate'];
+
+            //connect to database
+            database();
+            global $connect;
+        //check if duplicate
+            $resultset_1 = mysqli_query($connect, "SELECT * FROM events WHERE name ='$title'");
+            $count = mysqli_num_rows($resultset_1);
+            if($count == 0){
+                $event = "INSERT INTO events(name, date) VALUES ('$title', '$date')";
+                $insertEvent = mysqli_query($connect, $event);
+            }
+            else{
+            echo '<h6 style="color: red;">*This event already exists, please enter a valid event name.<h6>';
+            }
+            mysqli_close($connect);
+        }
+        ?>
+        </div>
+        <div class="row">
             <div class="col-8">
                 <form method='post' action='create.php'>
                 <div class="input-group input-group-lg">
@@ -135,7 +135,7 @@ li:first-child{
                     global $connect;
                     //$item  = ;
                     $result = mysqli_query($connect, "SELECT eventid, name, date FROM events");
-                    //check if there's any data inside the table and if there is 1 or more items, it will fetch and display them
+                    //check if there's any data inside the events table and if there is 1 or more items, it will fetch and display them
                     if(mysqli_num_rows($result) >= 1){
                         while($row = mysqli_fetch_array($result)){
                             $id = $row["eventid"];
@@ -151,8 +151,6 @@ li:first-child{
                                 }
                             }
                         ?>
-                            
-                
                 <ul>
                     <li style="list-style: none; display: inline-block;"><a href="events.php?title=<?php echo $title?>&date=<?php echo $date?>&id=<?php echo $id?>&note=<?php echo $notes?>"><?php echo $title?></a></li>
                     <a href="delete.php?del=<?php echo $id?>"><img src="img/icons8-trash-50.png" alt="Delete" class="deleteEvent" style="width:1em; margin-left:1em; display: inline-block;"></a>
@@ -168,7 +166,6 @@ li:first-child{
         </div>    
     </div>
 
-    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

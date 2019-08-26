@@ -9,14 +9,7 @@ if(isset($_POST['saved'])) {
     if(isset($_GET['note'])){
         $notes = $_GET['note'];
         }
-    //if(empty($_POST['itemname']))
-    //if($_POST['save'] === '') {
-      //  echo "Empty";
-    //}
-    //else {
-        
-    //}
-   //connect to database
+  
    database();
    global $connect;
    $items = "INSERT INTO inventory(eventid, Item, Quantity, Assigned) VALUES ('$id', '$item', '$quantity', '$assigned')";
@@ -34,10 +27,7 @@ if(isset($_POST['add'])) {
     $id = $_GET['id'];
     $title = $_GET['title'];
     $date = $_GET['date'];
-    //if(isset($_GET['note'])){
-        //$notes = $_GET['note'];
-        //}
-    
+  
     
     database();
     global $connect;
@@ -46,9 +36,9 @@ if(isset($_POST['add'])) {
     if(mysqli_num_rows($checkingNotes) >= 1){
         $addNotes = mysqli_query($connect, "UPDATE notes SET Notes = '$notes' WHERE eventid = '$id'");
     
-        //This was used to test if the to-do item was deleted successfully
+        //This was used to test if the note was updated successfully
         if($addNotes){
-            echo 'To-Do successfully updated';
+            echo 'Note successfully updated';
             header('location: events.php?title='.$title.'&date='.$date.'&id='.$id.'&note='.$notes);
         }
         else{
@@ -71,13 +61,9 @@ if(isset($_POST['add'])) {
     }
 }
    
-//need to check edit inventory and edit name/date....check the $xxx['xxx'] for each.
-
- //make so the event page is for newly created events and another page for events that have already been created. 
 
 if(isset($_POST['changes'])){
 
-    //gets 'id' from the todo database list table and sets it to variable $id 
     $title = $_POST['editEventName'];
     $date = $_POST['editEventDate'];
     $id = $_GET['id'];
@@ -86,36 +72,27 @@ if(isset($_POST['changes'])){
         $notes = $_GET['note'];
         }
     
-
-
     //calls database function
     database();
 
     global $connect;
 
-    //sets variable $item to DELETE FROM list WHERE id = '$id' which will be used in mysql. 
-
-
-    //connects to database and deletes the the item with the matching id from list table in mysql
-    $changes = mysqli_query($connect, "UPDATE events SET name = '$title', date = '$date'  WHERE eventid = '$id'");
-    echo $id;
-    
-
-    //This was used to test if the to-do item was deleted successfully
-    if($changes){
-        echo 'To-Do successfully updated';
-        header('location: events.php?title='.$title.'&date='.$date.'&id='.$id.'&note='.$notes);
+    //check if duplicate
+    $resultset_1 = mysqli_query($connect, "SELECT * FROM events WHERE name ='$title'");
+    $count = mysqli_num_rows($resultset_1);
+    if($count == 0){
+        $changes = mysqli_query($connect, "UPDATE events SET name = '$title', date = '$date'  WHERE eventid = '$id'");
+        if($changes){
+            echo 'Note successfully updated';
+            header('location: events.php?title='.$title.'&date='.$date.'&id='.$id.'&note='.$notes);
+        }
     }
     else{
-        echo mysqli_error($connect);
+        $duplicate = '<h6 style="color: red;">*This event already exists, please enter a valid event name.<h6>';
     }
-        mysqli_close($connect);
-    }
-
-
+    mysqli_close($connect);
+}
 ?>
-<!--<form method='post' action='create.php'>-->
-            
 
 <!doctype html>
 <html lang="en">
@@ -209,20 +186,9 @@ a:hover {
                 if(isset($_GET['title'])){
                     echo $_GET['title'];
                     $title = $_GET['title'];
-                }
-                if(isset($_GET['name'])){
-                    echo $_GET['name'];
-                    $title = $_GET['name'];
-                }
-
-                if(isset($_GET['name'])){
-                    echo $_GET['name'];
-                    $title = $_GET['name'];
-                }
-//check these out too...some may not be needed
+                    }
                 ?>
-                </h3>
-                
+                </h3>  
             </div>
             <!--Event Date-->    
             <div class="col-5">
@@ -244,6 +210,8 @@ a:hover {
             </div>
             <!--</form>-->
         </div>
+        <!--This row states if the event name is a duplicate-->
+        <div class="row"><?php echo $duplicate ?></div>
         <div class="row">
             <div class="col-7">
                 <h4>Inventory</h4>
@@ -275,9 +243,7 @@ a:hover {
                     $id = $_GET['id'];
                     if(isset($_GET['note'])){
                         $notes = $_GET['note'];
-                        }
-                
-                    //$item  = ;
+                        }               
                     $result = mysqli_query($connect, "SELECT ItemID, Item, Quantity, Assigned FROM inventory WHERE eventid = '$id'");
                     //check if there's any data inside the table and if there is 1 or more items, it will fetch and display them
                     if(mysqli_num_rows($result) >= 1){
@@ -341,8 +307,6 @@ a:hover {
                 </div>
             </div>
             </form>
-            
-                
             <!--Add Button
             <div class="row">
                 <div class="col-2">
@@ -351,9 +315,6 @@ a:hover {
                 </div>
             </div>-->
             <!--NOTES INPUT AND BUTTON-->
-            <!--NEED TO GET NOTES TO SHOW UP AND WORK!!!!-->
-            <!--When notes are edited and added, the name disappears. When the Name is edited, the notes disappear. Also, when adjusting inventory items the notes go away. Need to fix.-->
-
             <?php
             require_once 'database_connect.php';
             if(1==1){
@@ -416,6 +377,7 @@ a:hover {
                 </div> 
             </div>
         </div>
+        <!-----------------------------------------END EDIT MODAL--------------------------------------->
         <!--INPUT FOR ATTENDANCE----
         <div style="width:40%; float: right; padding-left: 2%;">
             <div class="row">
